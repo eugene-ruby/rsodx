@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+require "optparse"
+require "rsodx"
+
+if __FILE__ == $0
+  Rsodx::Cli::Handler.run
+end
