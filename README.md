@@ -1,21 +1,37 @@
 # Rsodx
 
-> Add Rsodx and just code ✨
+<p align="left">
+  <img src="docs/banner.jpg" width="300px" alt="Rsodx banner">
+</p>
 
-Rsodx is a lightweight, modular microservice framework for Ruby — designed to be fast, clean, and scalable. It provides a minimal architecture inspired by Rails, Sinatra, and Sequel, allowing you to focus on writing business logic without boilerplate.
+`rsodx` is a minimal, modular framework for building fast and maintainable Ruby microservices.  
+Inspired by the best of Rails, Sinatra, and Sequel — it gives you just enough structure to scale, without the overhead.
+
+No magic. Just clean code and powerful tools.
+
+
+```bash
+$ rsodx new my_rail_company
+🛤️  Initializing Transport Empire...
+📦 Creating folders...
+✅ Done! Start building your microservice railway!
+```
+
 
 ---
 
 ## 🧠 Philosophy
 
-- No monoliths — build small services
-- No magic — just plain Ruby
-- No opinionated ORM or router — just simple tools
-- Easily extendable and production-ready
+- **Micro-first** — focus on small, single-purpose services
+- **Explicit over implicit** — no hidden behavior, no global state
+- **Modular by design** — include only what you need
+- **Ruby-native** — use familiar patterns, no learning curve
+- **Production-oriented** — simple to develop, easy to deploy
 
 ---
 
-Вот аккуратно оформленный раздел `Installation` для твоего README:
+> ✅ `rsodx` includes routing, interactors, validation, and service structure —  
+all wrapped into a fast and lightweight toolkit made for modern Ruby apps.
 
 ---
 
@@ -39,84 +55,195 @@ bundle add rsodx
 gem install rsodx
 ```
 
-> ✅ `rsodx` is designed for microservice architecture and includes routing, interactors, validation, and more — all in one lightweight package.
+---
+
+## 🚀 CLI Commands
+
+`rsodx` ships with a powerful and lightweight CLI tool for generating services and scaffolding applications.
+
+You can run CLI commands via:
+
+```bash
+bin/rsodx [command] [args]
+```
 
 ---
 
+## 🔧 Generators
 
-## 📦 Project Structure
+Generate various application components using simple commands:
 
-```text
-my_service/
+```bash
+bin/rsodx generate controller v1/users/index
+bin/rsodx generate presenter v1/users/index
+bin/rsodx generate serializer v1/users/index
+```
+
+Or using aliases:
+
+```bash
+bin/rsodx g controller v1/users/index
+```
+
+To generate **all three** at once (controller, presenter, serializer):
+
+```bash
+bin/rsodx g action v1/users/index
+```
+
+This creates:
+
+- `app/controllers/v1/users/index_controller.rb`
+- `app/presenters/v1/users/index_presenter.rb`
+- `app/serializers/v1/users/index_serializer.rb`
+
+---
+
+## 🛠 Scaffold New App
+
+Create a full Rsodx project with:
+
+```bash
+bin/rsodx new my_app
+```
+
+Or using alias:
+
+```bash
+bin/rsodx n my_app
+```
+
+This will create a new directory `my_app` with:
+
+- `Gemfile`, `.env`, `.ruby-version`
+- `config.ru`, `Rakefile`, environment loader
+- `app/` structure (`controllers`, `services`, etc.)
+- `bin/console` and `bin/rsodx` CLI entrypoints
+
+It will be immediately runnable:
+
+```bash
+cd my_app
+bundle install
+bin/rsodx server
+```
+
+---
+
+## 🌐 Server Command
+
+Run a local Rack-based Puma server:
+
+```bash
+bin/rsodx server
+```
+
+Available options:
+
+- `--port=PORT` – default: `9292`
+- `--env=ENV` – default: `development`
+
+Example:
+
+```bash
+bin/rsodx server --port=3000 --env=production
+```
+
+### 🔍 How it works
+
+This command launches Puma via `rackup`:
+
+```ruby
+pid = spawn("bundle exec rackup --port=#{port} --host=0.0.0.0")
+Process.wait(pid)
+```
+
+It ensures that your `config.ru` is used correctly and delegates the full startup to Rack.
+
+---
+
+## ✅ Command Summary
+
+| Command | Description |
+|--------|-------------|
+| `rsodx new NAME` | Scaffold a new Rsodx project |
+| `rsodx server` | Run the Rack/Puma development server |
+| `rsodx generate controller PATH` | Generate a controller |
+| `rsodx generate presenter PATH` | Generate a presenter |
+| `rsodx generate serializer PATH` | Generate a serializer |
+| `rsodx generate action PATH` | Generate controller + presenter + serializer |
+| Aliases: `g`, `n`, `s` | All commands support short versions |
+
+---
+
+## 📁 Folder Structure (Generated App)
+
+```
+my_app/
 ├── app/
-│   ├── api/
-│   ├── interactors/
-│   ├── models/
+│   ├── controllers/
 │   ├── presenters/
 │   ├── serializers/
-│   ├── app.rb
-│   └── router.rb
+│   ├── services/
+├── bin/
+│   ├── console
+│   └── rsodx
 ├── config/
 │   ├── environment.rb
-│   ├── environments/
-│   └── initializers/
+│   └── environments/
 ├── db/
 │   └── migrations/
-├── bin/
-│   └── console
-├── .env
+├── spec/
 ├── config.ru
+├── .env
 ├── Gemfile
 └── Rakefile
 ```
 
 ---
 
-## 🧰 CLI Commands
+## 🗄️ PostgreSQL Setup
 
-### Create new service
+Your application connects to PostgreSQL using the `DATABASE_URL` defined in `.env`:
+
+```
+DATABASE_URL=postgres://rsodx:paSs4321@localhost:5432/rsodx_development
+```
+
+### 📌 To create this database manually:
+
+1. Open your terminal and run the PostgreSQL client:
 
 ```bash
-rsodx new my_service
+psql -U postgres
 ```
+
+2. Then, execute the following SQL commands:
+
+```sql
+-- Create the user
+CREATE USER rsodx WITH PASSWORD 'paSs4321';
+
+-- Create the database
+CREATE DATABASE rsodx_development;
+
+-- Grant privileges
+GRANT ALL PRIVILEGES ON DATABASE rsodx_development TO rsodx;
+```
+
+> 📍 If your system uses a different PostgreSQL superuser, adjust `-U postgres` accordingly.
 
 ---
 
-### Generate interactor
+## ✅ Quick Check
+
+You can test the connection:
 
 ```bash
-bin/rsodx generate interactor CreateUser
-```
-Creates `app/interactors/create_user.rb`:
-
-```ruby
-class CreateUser < Rsodx::Interactor
-  def call
-    # business logic here
-  end
-end
+psql postgres://rsodx:paSs4321@localhost:5432/rsodx_development
 ```
 
----
-
-### Generate migration
-
-```bash
-bin/rsodx generate migration CreateUsers
-```
-Creates `db/migrations/20240413_create_users.rb`:
-
-```ruby
-Sequel.migration do
-  change do
-    # create_table :users do
-    #   primary_key :id
-    #   String :email
-    #   DateTime :created_at
-    # end
-  end
-end
-```
+If it connects successfully, your database is ready for development!
 
 ---
 
@@ -125,7 +252,7 @@ end
 ```ruby
 class Router < Rsodx::Router
   namespace "/v1" do
-    post "/users", CreateUsers
+    post "/users", V1::Users::Create
   end
 end
 ```
@@ -168,11 +295,48 @@ CreateUser.call(params: {...})
 
 ---
 
-## 🔜 Roadmap
-- Generator for models, serializers, presenters
-- HTTP + JSON helpers
-- Authentication middleware
-- Better documentation site
+## 🛣️ Roadmap
+
+Planned features and improvements for upcoming versions of `rsodx`.
+
+### 🔄 Inter-service Communication
+
+- ✅ **Add RabbitMQ support** for event-driven microservices
+    - CLI: `rsodx g subscriber user/created`
+    - DSL: `on_event "user.created", with: HandleUserCreated`
+
+### 🐳 Docker Support
+
+- ✅ Dockerfile and docker-compose.yml templates
+- PostgreSQL, RabbitMQ, App
+
+### 📦 Generators & Tooling
+
+- [ ] `rsodx g worker fetch_data`
+- [ ] `rsodx g subscriber event_name`
+- [ ] CLI flags: `--dry-run`, `--force`, `--skip`
+- [ ] Generate test stubs with each component
+
+### 🌐 Web Server Improvements
+
+- [ ] Auto-discovery of config.ru or App class
+- [ ] `rsodx server --daemon`, `--log`
+
+### 📚 Documentation & API
+
+- [ ] Auto-generate OpenAPI / Swagger docs from declared routes and schemas
+- [ ] DRY validation + schema → Swagger with types and examples
+- [ ] `rsodx g docs` or `rsodx docs generate`
+
+### 🛠 Developer Experience
+
+- [ ] `rsodx console` (IRB + app preload)
+- [ ] `rsodx doctor` for environment diagnostics
+- [ ] Starter project templates (`--template=api`, `--template=evented`)
+
+---
+
+If you’d like to contribute or suggest new features — feel free to open an issue or PR. Let’s make `rsodx` fast, lean and production-ready together! ❤️
 
 ---
 

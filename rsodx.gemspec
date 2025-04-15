@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "rake", "~> 13.1"
+  spec.add_runtime_dependency "rackup", "~> 2.2"
   spec.add_runtime_dependency "sinatra", "~> 4.1"
   spec.add_runtime_dependency "sequel", "~> 5.91"
   spec.add_runtime_dependency "pg", "~> 1.5"
@@ -35,6 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "puma", "~> 6.4"
   spec.add_runtime_dependency "json", "~> 2.7"
   spec.add_runtime_dependency "ostruct", "~> 0.5"
+  spec.add_runtime_dependency "oj", "~> 3.16"
+  spec.add_runtime_dependency "dry-cli", "~> 1.2"
 
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rubocop", "~> 1.75"
