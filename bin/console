@@ -3,10 +3,12 @@
 
 require "bundler/setup"
 require "rsodx"
-require_relative '../lib/config/environment'
+puts Rsodx::LOGO
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+def reload!
+  puts "♻️  Reloading lib/rsodx..."
+  load File.expand_path("../lib/rsodx.rb", __dir__)
+end
 
 require "irb"
-IRB.start(__FILE__)
+IRB.start
