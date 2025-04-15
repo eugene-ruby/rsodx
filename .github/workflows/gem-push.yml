@@ -1,0 +1,35 @@
+name: Push RubyGem
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Build and publish to RubyGems
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Build gem
+        run: gem build rsodx.gemspec
+
+      - name: Publish to RubyGems
+        env:
+          RUBYGEMS_AUTH_TOKEN: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
+        run: |
+          mkdir -p ~/.gem
+          echo "---\n:rubygems_api_key: ${RUBYGEMS_AUTH_TOKEN}" > ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          gem push rsodx-*.gem
