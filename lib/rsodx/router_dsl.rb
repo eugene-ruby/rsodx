@@ -7,38 +7,28 @@ module Rsodx
     end
 
     module ClassMethods
-      def route(verb, path, interactor, opts = {})
+      def route(verb, path, handler_class, options = {})
         define_route(verb, path) do
-          payload = begin
-                      request.body.rewind
-                      JSON.parse(request.body.read, symbolize_names: true)
-                    rescue JSON::ParserError
-                      {}
-                    end
+          req = Request.new(verb: verb, path: path, request: request)
+          result = Action.call(request: req, handler_class: handler_class, options: options)
 
-          ctx = {
-            params: params.to_h,
-            json: payload
-          }.merge(opts)
-
-          result = interactor.call(ctx)
-
-          status(result.error_code || 200)
+          content_type :json
+          status(result.error_code || result.code || 200)
 
           if result.success?
-            { success: true, data: result.data }.to_json
+            result.json_response
           else
             { success: false, error: result.error }.to_json
           end
         end
       end
 
-      %i[get post put patch delete].each do |verb|
+      %i[get post put patch delete head options].each do |verb|
         define_method(verb) do |path, interactor = nil, **opts, &block|
           if interactor
             route(verb, path, interactor, opts)
           else
-            super(path, &block)
+            define_route(verb, path, &block)
           end
         end
       end

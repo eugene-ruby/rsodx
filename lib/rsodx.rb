@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
-Dir[File.join(__dir__, "rsodx/*.rb")].sort.each { |f| require_relative f }
-Dir[File.join(__dir__, "rsodx/**/*.rb")].sort.each { |f| require_relative f }
+require_relative 'rsodx/delegate'
+require_relative 'rsodx/service'
+
+base = File.expand_path(__dir__)
+
+Dir.glob("#{base}/rsodx/*.rb").sort.each do |file|
+  require_relative file.sub("#{base}/", "")
+end
+Dir.glob("#{base}/rsodx/**/*.rb").sort.each do |file|
+  require_relative file.sub("#{base}/", "")
+end
 
 module Rsodx
 end

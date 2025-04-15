@@ -1,8 +1,11 @@
 require "interactor"
 require "json"
 module Rsodx
-  class Interactor
+  class Service
     include ::Interactor
+    extend Delegate
+
+    delegate :params, :object, to: :context
 
     class << self
       attr_accessor :contract_class
@@ -21,7 +24,7 @@ module Rsodx
 
     def halt(code, message)
       log_error(code, message)
-      context.fail!(error_code: code, error: Rsodx::Error::ContractError.new(message))
+      context.fail!(error_code: code, error: message)
     end
 
     private

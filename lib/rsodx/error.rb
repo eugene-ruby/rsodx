@@ -1,6 +1,4 @@
 module Rsodx
-  module Error
-    class Error < StandardError; end
-    class ContractError < Error; end
+  class Error < StandardError
   end
 end
