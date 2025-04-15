@@ -12,12 +12,17 @@ module Rsodx::Cli::Commands
       @name = arg[:name]
       @app_path = File.join(Dir.pwd, @name)
 
-      puts "🚀 Creating project: #{@name}"
+      puts Rsodx::LOGO
+
+      puts "\e[33m🛤️ Initializing Transport Empire for '#{@name}'...\e[0m"
+      puts "\e[34m📦 Creating files and folders...\e[0m"
+
       create_folders
       create_files
-      puts "✅ Done! Your project is ready at #{@app_path}"
+
+      puts "\e[32m✅ Done! Your microservice has been scaffolded at the '#{@app_path}' railway!\e[0m"
     rescue => e
-      abort "❌ Failed to scaffold: #{e.message}"
+      abort "\e[31m❌ Failed to scaffold: #{e.message}\e[0m"
     end
 
     private

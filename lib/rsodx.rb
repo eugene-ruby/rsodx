@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'rsodx/version'
 require_relative 'rsodx/delegate'
 require_relative 'rsodx/service'
 

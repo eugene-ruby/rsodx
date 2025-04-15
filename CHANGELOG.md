@@ -12,6 +12,14 @@ All notable changes to this project will be documented in this file.
 - Daemonized `rsodx server` with logging options
 
 ---
+## [0.0.3] - 2025-04-15
+
+### Changed
+- Added minor stylistic improvements to CLI output (colors, emoji, formatting).
+- Improved ASCII logo rendering and version display.
+- Enhanced `bin/console` with better IRB context and `reload!` helper.
+
+---
 
 ## [0.0.2] - 2025-04-15
 
