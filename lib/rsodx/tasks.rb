@@ -5,11 +5,11 @@ require "sequel/extensions/migration"
 
 namespace :db do
   task :migrate do
-    Sequel::Migrator.run(DB.connect, "db/migrations")
+    Sequel::Migrator.run(Rsodx::Connect.db, "db/migrations")
   end
 
   task :rollback do
-    target = Sequel::Migrator.apply(DB.connect, "db/migrations", :down) - 1
-    Sequel::Migrator.run(DB.connect, "db/migrations", target: target)
+    target = Sequel::Migrator.apply(Rsodx::Connect.db, "db/migrations", :down) - 1
+    Sequel::Migrator.run(Rsodx::Connect.db, "db/migrations", target: target)
   end
 end

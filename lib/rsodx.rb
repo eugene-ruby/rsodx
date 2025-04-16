@@ -14,4 +14,14 @@ Dir.glob("#{base}/rsodx/**/*.rb").sort.each do |file|
 end
 
 module Rsodx
+  class << self
+    attr_accessor :config
+
+    def configure
+      self.config ||= Configuration.new
+      yield(config)
+    end
+  end
 end
+
+Rsodx.config ||= Rsodx::Configuration.new

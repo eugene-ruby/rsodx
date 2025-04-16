@@ -52,7 +52,12 @@ module Rsodx::Cli::Commands::ScaffoldCommon
   ENV_LOADER = <<~ENV_LOADER.freeze
     require "rsodx"
     Rsodx::Environment.load_dotenv(ENV["RACK_ENV"] || "development")
-    Rsodx::Connect.connect ENV["DATABASE_URL"]
+    
+    Rsodx.configure do |config|
+      config.database_url = ENV["DATABASE_URL"]
+    end
+    Rsodx::Connect.connect
+
     Rsodx::Environment.load_initializers(File.expand_path("../..", __FILE__))
     Rsodx::Boot.load_app_structure(File.expand_path("../..", __FILE__))
   ENV_LOADER
