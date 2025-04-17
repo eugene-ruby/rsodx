@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Release Please
-        id: release
         uses: googleapis/release-please-action@v3
         with:
           release-type: ruby
-          token: ${{ secrets.GH_RELEASE_PAT }}
