@@ -17,3 +17,5 @@ jobs:
         uses: googleapis/release-please-action@v3
         with:
           release-type: ruby
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
