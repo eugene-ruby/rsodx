@@ -2,8 +2,8 @@ module Rsodx::Cli::Commands::ScaffoldCommon
   RUBY_VERSION = "3.4.2".freeze
 
   GITIGNORE = <<~GITIGNORE.freeze
-  .env
-  tmp/
+    .env
+    tmp/
   GITIGNORE
 
   #  path: "../rsodx"
@@ -25,32 +25,15 @@ module Rsodx::Cli::Commands::ScaffoldCommon
     Rsodx::CLI.call
   BINRSODX
 
-  CONSOLE = <<~CONSOLE.freeze
-    #!/usr/bin/env ruby
-
-    require "irb"
-    require "irb/completion"
-
-    def reload!
-      puts "🔄 Reloading..."
-      load File.expand_path("../config/environment.rb", __dir__)
-    end
-
-    require_relative "../config/environment"
-
-    puts "🔬 Welcome to Rsodx console (#{ENV['RACK_ENV'] || 'development'})"
-    puts "Tip: access Rsodx modules, models, services, etc."
-
-    IRB.start
-  CONSOLE
-
   CONFIGRU = <<~RACK.freeze
     require_relative "./app/app"
     run App
   RACK
 
   ENV_LOADER = <<~ENV_LOADER.freeze
+    require "zeitwerk"
     require "rsodx"
+
     Rsodx::Environment.load_dotenv(ENV["RACK_ENV"] || "development")
     
     Rsodx.configure do |config|
@@ -59,7 +42,8 @@ module Rsodx::Cli::Commands::ScaffoldCommon
     Rsodx::Connect.connect
 
     Rsodx::Environment.load_initializers(File.expand_path("../..", __FILE__))
-    Rsodx::Boot.load_app_structure(File.expand_path("../..", __FILE__))
+
+    Rsodx.loader
   ENV_LOADER
 
   ROUTE = <<~ROUTE.freeze
@@ -106,7 +90,23 @@ module Rsodx::Cli::Commands::ScaffoldCommon
     DATABASE_URL=postgres://rsodx:paSs4321@localhost:5432/rsodx_development
   ENVFILE
 
-  FOLDERS = %w[app/controllers app/services app/models app/presenters
-                 app/serializers config/initializers
-                 config/environments db/migrations spec bin].freeze
+  KEEPABLE_FOLDERS = %w[
+    lib
+    app/controllers
+    app/workers
+    app/services
+    app/models
+    app/presenters
+    app/serializers
+    config/initializers
+    config/environments
+    db/migrations
+    spec
+  ].freeze
+
+  FRAMEWORK_FOLDERS = %w[
+    bin
+    config
+  ].freeze
+
 end

@@ -28,8 +28,13 @@ module Rsodx::Cli::Commands
     private
 
     def create_folders
-      FOLDERS.each do |path|
-        FileUtils.mkdir_p(File.join(@app_path, path))
+      KEEPABLE_FOLDERS.each do |folder|
+        FileUtils.mkdir_p(File.join(@app_path, folder))
+        FileUtils.touch(File.join(@app_path, folder, '.keep'))
+      end
+
+      FRAMEWORK_FOLDERS.each do |folder|
+        FileUtils.mkdir_p(File.join(@app_path, folder))
       end
     end
 
@@ -48,11 +53,9 @@ module Rsodx::Cli::Commands
       write("app/router.rb", ROUTE)
       write("config/environments/development.rb", "")
       write("config.ru", CONFIGRU)
-      write("bin/console", CONSOLE)
       write("bin/rsodx", BINRSODX)
 
       FileUtils.chmod("+x", File.join(@app_path, "bin/rsodx"))
-      FileUtils.chmod("+x", File.join(@app_path, "bin/console"))
     end
 
     def write(relative_path, content)

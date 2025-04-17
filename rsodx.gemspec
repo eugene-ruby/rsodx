@@ -38,4 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "ostruct", "~> 0.5"
   spec.add_runtime_dependency "oj", "~> 3.16"
   spec.add_runtime_dependency "dry-cli", "~> 1.2"
+  spec.add_runtime_dependency "zeitwerk", "~> 2.7"
+  spec.add_runtime_dependency "rdoc", "~> 6.13"
+  spec.add_runtime_dependency "irb", "~> 1.15"
 end

@@ -13,6 +13,31 @@ module Rsodx::Cli
       group: "",
       alias_prefix: "",
       commands: {
+        "db:migrate" => ::Rsodx::Cli::Commands::Db::Migrate
+      }
+    )
+
+    register_commands_with_alias(
+      group: "",
+      alias_prefix: "",
+      commands: {
+        "db:rollback" => ::Rsodx::Cli::Commands::Db::Rollback
+      }
+    )
+
+    register_commands_with_alias(
+      group: "",
+      alias_prefix: "",
+      commands: {
+        "console" => ::Rsodx::Cli::Commands::Console,
+        "c"   => ::Rsodx::Cli::Commands::Console
+      }
+    )
+
+    register_commands_with_alias(
+      group: "",
+      alias_prefix: "",
+      commands: {
         "new" => ::Rsodx::Cli::Commands::Scaffold,
         "n"   => ::Rsodx::Cli::Commands::Scaffold
       }

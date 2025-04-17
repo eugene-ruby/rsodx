@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rsodx (0.0.2)
+    rsodx (0.0.5)
       dotenv (~> 3.1)
       dry-cli (~> 1.2)
       dry-validation (~> 1.11)
@@ -15,6 +15,7 @@ PATH
       rake (~> 13.1)
       sequel (~> 5.91)
       sinatra (~> 4.1)
+      zeitwerk (~> 2.7)
 
 GEM
   remote: https://rubygems.org/
