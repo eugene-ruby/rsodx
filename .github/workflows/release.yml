@@ -12,10 +12,11 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_RELEASE_RSODX }}
     steps:
       - name: Release Please
         uses: googleapis/release-please-action@v3
         with:
           release-type: ruby
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_RSODX }}
+
