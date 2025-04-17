@@ -1,20 +1,13 @@
-name: Release
-
-on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
-  release:
+  test-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Release Please
-        uses: googleapis/release-please-action@v3
-        with:
-          release-type: ruby
-
+      - name: Print message
+        run: echo "Can I push?"
+      - name: Try to create PR via gh CLI
+        env:
+          GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
+        run: |
+          git config --global user.email "ci@example.com"
+          git config --global user.name "CI"
+          gh pr create --title "Test PR" --body "Checking rights" --base main --head test-branch
