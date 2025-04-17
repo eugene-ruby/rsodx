@@ -69,6 +69,40 @@ bin/rsodx [command] [args]
 
 ---
 
+Конечно! Вот секция для `README.md` на английском — про команды `db:migrate` и `db:rollback`:
+
+---
+
+## 🛠 Database Commands
+
+The `rsodx` CLI provides simple tools for running Sequel migrations:
+
+### 🔼 `db:migrate`
+
+Runs all pending migrations in `db/migrations`.
+
+```bash
+bin/rsodx db:migrate
+```
+
+- Automatically creates the `schema_migrations` table if it doesn't exist.
+- Supports timestamped migrations (e.g. `20250417061127_create_users.rb`).
+- Prints a success message on completion.
+
+### 🔽 `db:rollback`
+
+Rolls back the last executed migration.
+
+```bash
+bin/rsodx db:rollback
+```
+
+- Determines the current version from the `schema_migrations` table.
+- Rolls back to the previous migration based on timestamp.
+- Skips rollback if only one migration is applied.
+
+---
+
 ## 🔧 Generators
 
 Generate various application components using simple commands:
