@@ -18,3 +18,4 @@ jobs:
         uses: google-github-actions/release-please-action@v4
         with:
           release-type: ruby
+          token: ${{ secrets.GH_RELEASE_PAT }}
