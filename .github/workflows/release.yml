@@ -10,15 +10,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  test-push:
+  release:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
     steps:
-      - name: Print message
-        run: echo "Can I push?"
-      - name: Try to create PR via gh CLI
-        env:
-          GH_TOKEN: ${{ secrets.GH_RELEASE_PAT }}
-        run: |
-          git config --global user.email "ci@example.com"
-          git config --global user.name "CI"
-          gh pr create --title "Test PR" --body "Checking rights" --base main --head test-branch
+      - name: Release Please
+        uses: googleapis/release-please-action@v3
+        with:
+          release-type: ruby
+
