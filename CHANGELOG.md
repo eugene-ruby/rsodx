@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.2.0](https://github.com/eugene-ruby/rsodx/compare/v0.1.0...v0.2.0) (2025-05-15)
+
+
+### Features
+
+* add Logger and LoggerAdapter ([aa902d6](https://github.com/eugene-ruby/rsodx/commit/aa902d6db23abc352e903a1e33af4c8074df7564))
+
 ## [0.1.1](https://github.com/eugene-ruby/rsodx/compare/v0.1.0...v0.1.1)  – 2025-05-15
 
 ### Added
