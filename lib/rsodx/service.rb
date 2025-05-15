@@ -6,6 +6,7 @@ module Rsodx
     extend Delegate
 
     delegate :params, :object, to: :context
+    delegate :log, :info, :debug, :warn, :fatal, :error, to: :logger, prefix: :log
 
     class << self
       attr_accessor :contract_class
@@ -25,18 +26,11 @@ module Rsodx
     def halt(code, message)
       log_error(code, message)
       context.fail!(error_code: code, error: message)
+      Rsodx.config.logger&.error(code, message, context)
     end
 
-    private
-
-    def log_error(code, message)
-      puts JSON.pretty_generate({
-                                  level: "error",
-                                  code: code,
-                                  message: message,
-                                  context: context.to_h,
-                                  backtrace: caller
-                                })
+    def logger
+      Rsodx.config.logger
     end
   end
 end

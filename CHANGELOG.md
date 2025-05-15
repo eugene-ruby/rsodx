@@ -4,8 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.1.0](https://github.com/eugene-ruby/rsodx/compare/v0.0.3...v0.1.0) (2025-04-17)
+## [0.1.1](https://github.com/eugene-ruby/rsodx/compare/v0.1.0...v0.1.1)  – 2025-05-15
 
+### Added
+
+* 💡 Introduced `Rsodx::Logger` – a flexible logging module with support for pluggable adapters.
+* ✅ Added `Rsodx::LoggerAdapter` for wrapping any IO-compatible output (e.g. `$stdout`, `Syslog`, `File`).
+* 🔧 Logger can now be configured via `Rsodx.configure { |c| c.logger = ... }`.
+* 📦 Default logger writes to `$stdout` if no custom logger is provided.
+* 🧰 Added support for `delegate ... prefix: true` in `Rsodx::Delegate`, similar to ActiveSupport behavior.
+
+---
+
+## [0.1.0](https://github.com/eugene-ruby/rsodx/compare/v0.0.3...v0.1.0) (2025-04-17)
 
 ### Features
 

@@ -9,9 +9,8 @@
 /.idea/
 /app
 /db
-/.DS_Store
+.DS_Store
 rsodx-*.gem
-
 
 # rspec failure tracking
 .rspec_status

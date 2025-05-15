@@ -41,4 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "zeitwerk", "~> 2.7"
   spec.add_runtime_dependency "rdoc", "~> 6.13"
   spec.add_runtime_dependency "irb", "~> 1.15"
+  spec.add_runtime_dependency "syslog", "~> 0.3"
 end

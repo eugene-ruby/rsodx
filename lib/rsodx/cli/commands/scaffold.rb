@@ -46,7 +46,7 @@ module Rsodx::Cli::Commands
       write("config/environment.rb", ENV_LOADER)
       write("Rakefile", RAKEFILE)
       write("app/controllers/app_controller.rb", APP_CONTROLLER)
-      write("app/services/app_services.rb", APP_SERVICE)
+      write("app/services/app_service.rb", APP_SERVICE)
       write("app/serializers/app_serializer.rb", APP_SERIALIZER)
       write("app/presenters/app_presenter.rb", APP_PRESENTER)
       write("app/app.rb", APP)

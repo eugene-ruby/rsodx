@@ -14,6 +14,8 @@ Dir.glob("#{base}/rsodx/**/*.rb").sort.each do |file|
 end
 
 module Rsodx
+  RSODX_NAME = 'Rsodx'.freeze
+
   class << self
     attr_accessor :config
 
@@ -39,6 +41,7 @@ module Rsodx
         app/presenters
         app/serializers
         app/controllers
+        app/lib
       ].each do |subdir|
                     path = File.join(project_root, subdir)
                     loader.push_dir(path) if Dir.exist?(path)
